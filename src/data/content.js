@@ -1,11 +1,14 @@
 // ============================================================
 // Verge Wellness — content data
 // ------------------------------------------------------------
-// Each product/post/category may include an optional `image`
-// field. When set, put the file in `src/assets/` and import it,
-// or reference a file in `public/images/...` with an absolute
-// path. See README "Adding real images". When `image` is
-// omitted, the themed gradient placeholder (`media`) is used.
+// Products mirror the real Verge Wellness range. Each item has an
+// `image` field pointing at /images/<slug>.jpg in the `public/`
+// folder. Until a real photo is uploaded there, the themed gradient
+// placeholder (`media`) renders instead — nothing breaks.
+//
+// Image paths are ROOT-RELATIVE ("/images/...") so Vite rewrites
+// them for the GitHub Pages base path automatically.
+// See public/images/README.md for the full filename checklist.
 // ============================================================
 
 export const NAV = [
@@ -18,150 +21,213 @@ export const NAV = [
 ];
 
 export const PRODUCTS = {
+  // --- Powders, Superfoods, Seeds & Dried Herbs (pouches) ---
   powders: [
     {
       name: "Moringa Leaf Powder",
+      subtitle: "Moringa Oleifera",
+      size: "100g",
       price: 149,
       rating: 5,
       reviews: 24,
       media: "photo--powder",
+      image: "/images/moringa-powder.jpg",
+      benefits:
+        "Antioxidant-rich, anti-inflammatory, supports energy, gut health & immunity.",
     },
     {
       name: "Ashwagandha Powder",
+      subtitle: "Organic Root Powder",
+      size: "100g",
       price: 179,
       rating: 4,
       reviews: 18,
       media: "photo--powder",
-    },
-    {
-      name: "Soursop Leaf Powder",
-      price: 169,
-      rating: 5,
-      reviews: 16,
-      media: "photo--powder",
-    },
-    {
-      name: "Neem Leaf Powder",
-      price: 149,
-      rating: 4,
-      reviews: 12,
-      media: "photo--powder",
+      image: "/images/ashwagandha-powder.jpg",
+      benefits:
+        "Helps reduce stress & anxiety, improves sleep, boosts energy & immunity.",
     },
     {
       name: "Karela Powder",
+      subtitle: "Bitter Gourd",
+      size: "100g",
       price: 159,
       rating: 4,
       reviews: 10,
       media: "photo--powder",
+      image: "/images/karela-powder.jpg",
+      benefits:
+        "Rich in vitamins & antioxidants, aids blood sugar, digestion & detox.",
     },
     {
-      name: "Sea Moss Powder",
+      name: "Neem Powder",
+      subtitle: "Organic Leaf Powder",
+      size: "100g",
+      price: 149,
+      rating: 4,
+      reviews: 12,
+      media: "photo--powder",
+      image: "/images/neem-powder.jpg",
+      benefits:
+        "Aids acne & skin health, boosts immunity, digestion & blood cleansing.",
+    },
+    {
+      name: "Chia Seeds",
+      subtitle: "Pure Chia Seeds",
+      size: "100g",
+      price: 129,
+      rating: 5,
+      reviews: 15,
+      media: "photo--powder",
+      image: "/images/chia-seeds.jpg",
+      benefits:
+        "Fibre & protein powerhouse; supports heart, digestion & brain function.",
+    },
+    {
+      name: "Raw Sea Moss",
+      subtitle: "Organic Sea Moss",
+      size: "100g",
       price: 199,
       rating: 5,
       reviews: 14,
       media: "photo--powder",
+      image: "/images/raw-sea-moss.jpg",
+      benefits:
+        "92 essential minerals; supports immunity, thyroid, gut, skin & energy.",
     },
     {
-      name: "Herbal Blend (Immunity Boost)",
-      price: 189,
+      name: "Dried Hibiscus Flower",
+      subtitle: "Hibiscus Rosa-Sinensis",
+      size: "50g",
+      price: 119,
       rating: 4,
       reviews: 9,
       media: "photo--powder",
+      image: "/images/hibiscus-flower.jpg",
+      benefits:
+        "Antioxidant-rich; supports liver, cholesterol, digestion & immunity.",
     },
     {
-      name: "Spirulina Powder",
-      price: 179,
+      name: "Dried Soursop Leaves",
+      subtitle: "Graviola",
+      size: "50g",
+      price: 139,
       rating: 5,
       reviews: 11,
       media: "photo--leaves",
-    },
-    {
-      name: "Chlorella Powder",
-      price: 169,
-      rating: 4,
-      reviews: 8,
-      media: "photo--leaves",
-    },
-    {
-      name: "Superfood Blend",
-      price: 219,
-      rating: 5,
-      reviews: 7,
-      media: "photo--powder",
+      image: "/images/soursop-leaves.jpg",
+      benefits:
+        "Antioxidant-rich; supports relaxation, digestion, immunity & wellness.",
     },
   ],
+
+  // --- Capsules & Supplements (amber jars, 60 capsules) ---
   capsules: [
     {
       name: "Ashwagandha Capsules",
+      subtitle: "Supports Stress Management*",
+      size: "60 Capsules",
       price: 179,
       rating: 5,
       reviews: 15,
       media: "photo--oil",
-    },
-    {
-      name: "Moringa Capsules",
-      price: 159,
-      rating: 4,
-      reviews: 12,
-      media: "photo--oil",
-    },
-    {
-      name: "Soursop Leaf Capsules",
-      price: 159,
-      rating: 5,
-      reviews: 9,
-      media: "photo--oil",
-    },
-    {
-      name: "Neem Leaf Capsules",
-      price: 149,
-      rating: 4,
-      reviews: 10,
-      media: "photo--oil",
+      image: "/images/ashwagandha-capsules.jpg",
+      benefits: "Stress • Sleep • Memory • Immunity support.",
     },
     {
       name: "Karela Capsules",
+      subtitle: "Blood Sugar Support*",
+      size: "60 Capsules",
       price: 149,
       rating: 5,
       reviews: 8,
       media: "photo--oil",
-    },
-  ],
-  skincare: [
-    {
-      name: "Skin Glow Face Oil",
-      price: 299,
-      rating: 5,
-      reviews: 14,
-      media: "photo--oil",
+      image: "/images/karela-capsules.jpg",
+      benefits: "Blood sugar • Metabolic • Digestive • Antioxidant support.",
     },
     {
-      name: "Nourishing Body Butter",
-      price: 249,
+      name: "Moringa Leaf Capsules",
+      subtitle: "Nutrition and Energy Support*",
+      size: "60 Capsules",
+      price: 159,
       rating: 4,
+      reviews: 12,
+      media: "photo--oil",
+      image: "/images/moringa-capsules.jpg",
+      benefits: "Nutrition • Energy • Immune • Antioxidant support.",
+    },
+    {
+      name: "Neem Leaf Capsules",
+      subtitle: "Purification and Immune Support*",
+      size: "60 Capsules",
+      price: 149,
+      rating: 4,
+      reviews: 10,
+      media: "photo--oil",
+      image: "/images/neem-capsules.jpg",
+      benefits: "Detoxification • Immune • Skin health • Antioxidant support.",
+    },
+    {
+      name: "Sea Moss Capsules",
+      subtitle: "Immune and Cellular Support*",
+      size: "60 Capsules",
+      price: 189,
+      rating: 5,
       reviews: 9,
       media: "photo--oil",
+      image: "/images/sea-moss-capsules.jpg",
+      benefits: "Immune • Mineral-rich • Digestive • Energy & vitality.",
     },
     {
-      name: "Hair Growth Oil",
+      name: "Soursop Leaf Capsules",
+      subtitle: "Immune and Cellular Support*",
+      size: "60 Capsules",
+      price: 159,
+      rating: 5,
+      reviews: 9,
+      media: "photo--oil",
+      image: "/images/soursop-capsules.jpg",
+      benefits: "Immune • Antioxidant • Digestive • Inflammation support.",
+    },
+  ],
+
+  // --- Skin & Hair Care (oils, butters, liquids) ---
+  skincare: [
+    {
+      name: "Organic Hair Growth Oil",
+      subtitle: "Botanical Oil Blend",
+      size: "100ml",
       price: 229,
       rating: 5,
       reviews: 11,
       media: "photo--oil",
+      image: "/images/hair-growth-oil.jpg",
+      benefits:
+        "Deeply moisturises, soothes scalp & supports stronger, longer hair.",
     },
     {
-      name: "Revitalising Face Cream",
-      price: 279,
+      name: "Unrefined Shea Butter",
+      subtitle: "For all skin & hair types",
+      size: "250ml",
+      price: 179,
       rating: 4,
+      reviews: 9,
+      media: "photo--oil",
+      image: "/images/shea-butter.jpg",
+      benefits:
+        "Deeply moisturises & softens; rich in Vitamins A & E, chemical-free.",
+    },
+    {
+      name: "Liquid Chlorophyll",
+      subtitle: "Chlorophyllin",
+      size: "100ml",
+      price: 199,
+      rating: 5,
       reviews: 7,
       media: "photo--oil",
-    },
-    {
-      name: "Complete Care Bundle",
-      price: 799,
-      rating: 5,
-      reviews: 6,
-      media: "photo--oil",
+      image: "/images/liquid-chlorophyll.jpg",
+      benefits:
+        "Natural deodoriser & antioxidant; supports skin & general wellness.",
     },
   ],
 };
@@ -172,30 +238,35 @@ export const CATEGORIES = [
     blurb: "Nutrient-rich superfoods for your daily wellness.",
     link: "Shop Powders",
     media: "photo--powder",
+    image: "/images/moringa-powder.jpg",
   },
   {
     name: "Capsules",
     blurb: "Targeted support for natural balance.",
     link: "Shop Capsules",
     media: "photo--oil",
+    image: "/images/ashwagandha-capsules.jpg",
   },
   {
     name: "Oils & Butters",
     blurb: "Pure nourishment for hair, skin and body.",
     link: "Shop Oils & Butters",
     media: "photo--oil",
+    image: "/images/hair-growth-oil.jpg",
   },
   {
     name: "Skin & Haircare",
     blurb: "Organic care for radiant skin and healthy hair.",
     link: "Shop Skin & Haircare",
     media: "photo--oil",
+    image: "/images/shea-butter.jpg",
   },
   {
     name: "Superfood Blends",
     blurb: "Whole food nutrition for lasting vitality.",
     link: "Shop Blends",
     media: "photo--powder",
+    image: "/images/chia-seeds.jpg",
   },
 ];
 
