@@ -45,6 +45,12 @@ export default function Footer() {
               <li>
                 <Link to="/benefits">Our Benefits</Link>
               </li>
+              <li>
+                <Link to="/login">Sign In</Link>
+              </li>
+              <li>
+                <Link to="/signup">Create Account</Link>
+              </li>
             </ul>
           </div>
           <div>

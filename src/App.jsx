@@ -6,6 +6,8 @@ import About from "./pages/About";
 import Benefits from "./pages/Benefits";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="benefits" element={<Benefits />} />
         <Route path="blog" element={<Blog />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>
