@@ -19,6 +19,7 @@ export default function ProductCard({ product }) {
       </Photo>
       <div className="product__body">
         <h4 className="product__name">{product.name}</h4>
+        {product.size && <div className="product__size">{product.size}</div>}
         <div className="product__price">R{product.price.toFixed(2)}</div>
         <Stars rating={product.rating} reviews={product.reviews} />
       </div>

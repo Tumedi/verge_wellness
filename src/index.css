@@ -468,6 +468,12 @@ p {
   color: var(--forest);
 }
 
+.product__size {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
 .product__price {
   color: var(--green-500);
   font-weight: 600;

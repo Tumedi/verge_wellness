@@ -56,8 +56,9 @@ export default function Shop() {
             </div>
             <Photo
               media="photo--powder"
+              src="/images/moringa-powder.jpg"
               style={{ height: 260 }}
-              alt="Moringa powder in a wooden bowl"
+              alt="Moringa powder"
             />
           </div>
         </div>
@@ -179,7 +180,11 @@ export default function Shop() {
                     Targeted support for your health and wellness.
                   </p>
                 </div>
-                <Photo media="photo--oil" alt="Capsules" />
+                <Photo
+                  media="photo--oil"
+                  src="/images/ashwagandha-capsules.jpg"
+                  alt="Capsules"
+                />
               </div>
               <div className="product-grid">
                 {PRODUCTS.capsules.map((p) => (
@@ -189,12 +194,16 @@ export default function Shop() {
 
               <div className="cat-banner">
                 <div>
-                  <h3>Skin &amp; Haircare</h3>
+                  <h3>Skin &amp; Hair Care</h3>
                   <p className="text-muted" style={{ fontSize: ".85rem" }}>
                     Pure care. Natural beauty.
                   </p>
                 </div>
-                <Photo media="photo--portrait" alt="Skincare" />
+                <Photo
+                  media="photo--oil"
+                  src="/images/hair-growth-oil.jpg"
+                  alt="Hair &amp; skin care"
+                />
               </div>
               <div className="product-grid">
                 {PRODUCTS.skincare.map((p) => (
