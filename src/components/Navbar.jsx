@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { NAV } from "../data/content";
 import { useStore } from "./StoreContext";
 import { Leaf, Search, User, Cart, Menu } from "./Icons";
@@ -19,7 +19,8 @@ export { Brand };
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const { cart } = useStore();
+  const { cart, user, logout } = useStore();
+  const navigate = useNavigate();
 
   return (
     <header className="site-header">
@@ -43,9 +44,35 @@ export default function Navbar() {
           <button className="icon-btn" aria-label="Search">
             <Search />
           </button>
-          <button className="icon-btn" aria-label="Account">
-            <User />
-          </button>
+          {user ? (
+            <div className="account-menu">
+              <button
+                className="icon-btn account-menu__trigger"
+                aria-label="Account"
+              >
+                <User />
+                <span className="account-menu__name">
+                  {user.name.split(" ")[0]}
+                </span>
+              </button>
+              <div className="account-menu__dropdown">
+                <span className="account-menu__email">{user.email}</span>
+                <button
+                  className="account-menu__logout"
+                  onClick={() => {
+                    logout();
+                    navigate("/");
+                  }}
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+          ) : (
+            <Link className="icon-btn" to="/login" aria-label="Sign in">
+              <User />
+            </Link>
+          )}
           <button className="icon-btn" aria-label="Cart">
             <Cart />
             {cart > 0 && <span className="cart-count">{cart}</span>}
