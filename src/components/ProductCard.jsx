@@ -22,6 +22,11 @@ export default function ProductCard({ product }) {
         {product.size && <div className="product__size">{product.size}</div>}
         <div className="product__price">R{product.price.toFixed(2)}</div>
         <Stars rating={product.rating} reviews={product.reviews} />
+        {product.benefits && (
+          <p className="product__benefits" title={product.description}>
+            {product.benefits}
+          </p>
+        )}
       </div>
       <button
         className="btn btn--primary"
