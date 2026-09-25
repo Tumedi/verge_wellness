@@ -34,6 +34,8 @@ export const PRODUCTS = {
       image: "/images/moringa-powder.jpg",
       benefits:
         "Antioxidant-rich, anti-inflammatory, supports energy, gut health & immunity.",
+      description:
+        "Pure dried Moringa Oleifera leaf powder — one of nature's most complete superfoods. Rich in antioxidants and anti-inflammatory, it may help regulate blood sugar, boost energy and reduce fatigue, support gut health and immunity, and nourish skin, hair, liver, heart and brain. Add 1 teaspoon into any liquid of your choice and consume in the morning.",
     },
     {
       name: "Ashwagandha Powder",
@@ -46,6 +48,8 @@ export const PRODUCTS = {
       image: "/images/ashwagandha-powder.jpg",
       benefits:
         "Helps reduce stress & anxiety, improves sleep, boosts energy & immunity.",
+      description:
+        "Organic ashwagandha root powder, a time-honoured adaptogen. It may help reduce stress and anxiety, improve sleep quality, boost brain, memory and heart health, lift energy and immunity, balance hormones and libido, aid blood sugar regulation, support physical performance and recovery, and help lower cholesterol. Take ¼ teaspoon with water mornings and evenings.",
     },
     {
       name: "Karela Powder",
@@ -58,6 +62,8 @@ export const PRODUCTS = {
       image: "/images/karela-powder.jpg",
       benefits:
         "Rich in vitamins & antioxidants, aids blood sugar, digestion & detox.",
+      description:
+        "Organic karela (bitter gourd) powder, rich in vitamins and antioxidants. It may help regulate blood sugar, aid digestion and constipation relief, support weight management, detoxify and purify the blood, support liver wellness, boost skin and hair health and help lower cholesterol. Take ½ teaspoon with warm water on an empty stomach in the morning.",
     },
     {
       name: "Neem Powder",
@@ -70,6 +76,8 @@ export const PRODUCTS = {
       image: "/images/neem-powder.jpg",
       benefits:
         "Aids acne & skin health, boosts immunity, digestion & blood cleansing.",
+      description:
+        "Pure dried neem leaf powder, prized for its purifying properties. It may help with acne and pimples, reduce hyperpigmentation and scarring, ease eczema, psoriasis and skin infections, act as an anti-ageing agent, combat dandruff and itchy scalp, strengthen hair and promote growth, freshen breath and support gum health, boost immunity and digestion, aid blood sugar regulation, and purify and cleanse the blood. Take ½ teaspoon with water, yogurt or a smoothie, or use as a face mask.",
     },
     {
       name: "Chia Seeds",
@@ -82,6 +90,8 @@ export const PRODUCTS = {
       image: "/images/chia-seeds.jpg",
       benefits:
         "Fibre & protein powerhouse; supports heart, digestion & brain function.",
+      description:
+        "Pure chia seeds — a nutritional powerhouse of fibre and protein and a great source of antioxidants and minerals. They may boost brain function and memory, support digestive and heart health, aid blood sugar regulation and weight management, help strengthen teeth and bones, support detoxification, improve sleep and help regulate appetite. Add 1–2 teaspoons into yogurt, a smoothie, water or any liquid of your choice and allow time to soak before consuming.",
     },
     {
       name: "Raw Sea Moss",
@@ -94,6 +104,8 @@ export const PRODUCTS = {
       image: "/images/raw-sea-moss.jpg",
       benefits:
         "92 essential minerals; supports immunity, thyroid, gut, skin & energy.",
+      description:
+        "Organic raw sea moss, said to contain 92 of the body's essential minerals. It boosts the immune system, helps with digestion and weight management, supports heart, gut and thyroid health, nourishes skin, hair and nails, may help regulate blood sugar, supports joint, bone and muscle health, may boost energy, acts as an anti-ageing supplement and is anti-inflammatory. Wash thoroughly, soak in spring water, blend and store — take a tablespoon every morning.",
     },
     {
       name: "Dried Hibiscus Flower",
@@ -106,6 +118,8 @@ export const PRODUCTS = {
       image: "/images/hibiscus-flower.jpg",
       benefits:
         "Antioxidant-rich; supports liver, cholesterol, digestion & immunity.",
+      description:
+        "Pure dried hibiscus flowers (Hibiscus Rosa-Sinensis), rich in antioxidants. They support liver health, help lower cholesterol and triglycerides, aid weight management, support digestion and overall immunity, may lower blood pressure, may ease stress and low mood, are anti-inflammatory and may help ease menstrual pain. Steep flowers in hot water or boil for 5–10 minutes; serve hot or chilled.",
     },
     {
       name: "Dried Soursop Leaves",
@@ -118,6 +132,8 @@ export const PRODUCTS = {
       image: "/images/soursop-leaves.jpg",
       benefits:
         "Antioxidant-rich; supports relaxation, digestion, immunity & wellness.",
+      description:
+        "Dried soursop (graviola) leaves, rich in antioxidants. They may reduce inflammation, support blood pressure management, help manage blood sugar, promote relaxation and sleep, support digestive and gastric health, aid immune support and support general wellness. Boil 3–4 leaves in 1 cup of water for 5 minutes, strain and enjoy after meals — no more than 3 cups daily.",
     },
   ],
 
@@ -133,6 +149,8 @@ export const PRODUCTS = {
       media: "photo--oil",
       image: "/images/ashwagandha-capsules.jpg",
       benefits: "Stress • Sleep • Memory • Immunity support.",
+      description:
+        "Ashwagandha capsules formulated to support stress management. Each convenient capsule delivers this classic adaptogen to help support a calm mind, restful sleep, memory and focus, and everyday immunity. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
     },
     {
       name: "Karela Capsules",
@@ -144,6 +162,8 @@ export const PRODUCTS = {
       media: "photo--oil",
       image: "/images/karela-capsules.jpg",
       benefits: "Blood sugar • Metabolic • Digestive • Antioxidant support.",
+      description:
+        "Karela (bitter gourd) capsules for everyday blood sugar support. A convenient way to enjoy karela's traditional benefits — supporting healthy blood sugar and metabolism, aiding digestion and providing antioxidant support. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
     },
     {
       name: "Moringa Leaf Capsules",
@@ -155,6 +175,8 @@ export const PRODUCTS = {
       media: "photo--oil",
       image: "/images/moringa-capsules.jpg",
       benefits: "Nutrition • Energy • Immune • Antioxidant support.",
+      description:
+        "Moringa leaf capsules for nutrition and energy support. Packed with the goodness of moringa to nourish the body, support natural energy, everyday immunity and antioxidant protection — all in a convenient capsule. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
     },
     {
       name: "Neem Leaf Capsules",
@@ -166,6 +188,8 @@ export const PRODUCTS = {
       media: "photo--oil",
       image: "/images/neem-capsules.jpg",
       benefits: "Detoxification • Immune • Skin health • Antioxidant support.",
+      description:
+        "Neem leaf capsules for purification and immune support. Neem's traditional purifying properties in an easy daily capsule — supporting detoxification, immunity, clear healthy skin and antioxidant protection. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
     },
     {
       name: "Sea Moss Capsules",
@@ -177,6 +201,8 @@ export const PRODUCTS = {
       media: "photo--oil",
       image: "/images/sea-moss-capsules.jpg",
       benefits: "Immune • Mineral-rich • Digestive • Energy & vitality.",
+      description:
+        "Sea moss capsules for immune and cellular support. A mineral-rich sea superfood in convenient capsule form — supporting immunity, digestive health, and everyday energy and vitality. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly.",
     },
     {
       name: "Soursop Leaf Capsules",
@@ -188,6 +214,8 @@ export const PRODUCTS = {
       media: "photo--oil",
       image: "/images/soursop-capsules.jpg",
       benefits: "Immune • Antioxidant • Digestive • Inflammation support.",
+      description:
+        "Soursop (graviola) leaf capsules for immune and cellular support. Soursop's antioxidant-rich leaves in a daily capsule — supporting immunity, digestion and a healthy inflammatory response. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
     },
   ],
 
@@ -204,6 +232,8 @@ export const PRODUCTS = {
       image: "/images/hair-growth-oil.jpg",
       benefits:
         "Deeply moisturises, soothes scalp & supports stronger, longer hair.",
+      description:
+        "A nutrient-rich botanical hair oil infused with herbs and nourishing oils traditionally used to support healthy-looking hair and scalp. Deeply moisturises and nourishes, softens and soothes hair and scalp, supports stronger, longer-looking hair and helps reduce dryness and breakage. Perfect for natural hair, protective styles, dry scalp and damaged hair. Ingredients include Jamaican Black Castor Oil, Olive, Avocado and Grapeseed Oils, Ashwagandha, Neem and Amla Powders, Hibiscus, Cloves, Rosemary, Fenugreek, Black Cumin, Cinnamon, Vitamin E and botanical extracts. Apply a small amount to scalp and hair, massage 2–5 minutes, use 2–4 times weekly.",
     },
     {
       name: "Unrefined Shea Butter",
@@ -216,6 +246,8 @@ export const PRODUCTS = {
       image: "/images/shea-butter.jpg",
       benefits:
         "Deeply moisturises & softens; rich in Vitamins A & E, chemical-free.",
+      description:
+        "Raw organic unrefined shea butter for all skin and hair types. Deeply moisturises, softens and soothes skin and hair, and is rich in Vitamins A and E. Chemical-free and hexane-free — pure nourishment, nothing else. Ingredient: Raw Organic Unrefined Shea Butter.",
     },
     {
       name: "Liquid Chlorophyll",
@@ -228,6 +260,8 @@ export const PRODUCTS = {
       image: "/images/liquid-chlorophyll.jpg",
       benefits:
         "Natural deodoriser & antioxidant; supports skin & general wellness.",
+      description:
+        "Pure liquid chlorophyll (chlorophyllin) — a refreshing daily wellness drop. Acts as a natural internal deodoriser, provides antioxidant and anti-inflammatory support, may aid skin health and general wellness. Add 15–30 drops into a glass of water and enjoy 1–3 times daily. Shake well before use and store in a cool, dry place away from direct sunlight.",
     },
   ],
 };
