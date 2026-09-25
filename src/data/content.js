@@ -173,7 +173,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 12,
       media: "photo--oil",
-      image: "/images/moringa-capsules.jpg",
+      image: "/images/Moringa%20Capsules%20.png",
       benefits: "Nutrition • Energy • Immune • Antioxidant support.",
       description:
         "Moringa leaf capsules for nutrition and energy support. Packed with the goodness of moringa to nourish the body, support natural energy, everyday immunity and antioxidant protection — all in a convenient capsule. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -186,7 +186,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 10,
       media: "photo--oil",
-      image: "/images/neem-capsules.jpg",
+      image: "/images/Neem%20Capsules.png",
       benefits: "Detoxification • Immune • Skin health • Antioxidant support.",
       description:
         "Neem leaf capsules for purification and immune support. Neem's traditional purifying properties in an easy daily capsule — supporting detoxification, immunity, clear healthy skin and antioxidant protection. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -199,7 +199,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 9,
       media: "photo--oil",
-      image: "/images/sea-moss-capsules.jpg",
+      image: "/images/Sea%20Moss%20Capsules%20.png",
       benefits: "Immune • Mineral-rich • Digestive • Energy & vitality.",
       description:
         "Sea moss capsules for immune and cellular support. A mineral-rich sea superfood in convenient capsule form — supporting immunity, digestive health, and everyday energy and vitality. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly.",
@@ -212,7 +212,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 9,
       media: "photo--oil",
-      image: "/images/soursop-capsules.jpg",
+      image: "/images/Soursop%20Capsules.png",
       benefits: "Immune • Antioxidant • Digestive • Inflammation support.",
       description:
         "Soursop (graviola) leaf capsules for immune and cellular support. Soursop's antioxidant-rich leaves in a daily capsule — supporting immunity, digestion and a healthy inflammatory response. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
