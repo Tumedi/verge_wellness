@@ -73,7 +73,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 12,
       media: "photo--powder",
-      image: "/images/neem-powder.jpg",
+      image: "/images/neem-powder.png",
       benefits:
         "Aids acne & skin health, boosts immunity, digestion & blood cleansing.",
       description:
