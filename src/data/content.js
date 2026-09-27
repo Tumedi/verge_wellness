@@ -31,7 +31,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 24,
       media: "photo--powder",
-      image: "/images/moringa-powder.jpg",
+      image: "/images/moringa-powder.png",
       benefits:
         "Antioxidant-rich, anti-inflammatory, supports energy, gut health & immunity.",
       description:
@@ -45,7 +45,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 18,
       media: "photo--powder",
-      image: "/images/ashwagandha-powder.jpg",
+      image: "/images/ashwagandha-powder.png",
       benefits:
         "Helps reduce stress & anxiety, improves sleep, boosts energy & immunity.",
       description:
@@ -59,7 +59,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 10,
       media: "photo--powder",
-      image: "/images/karela-powder.jpg",
+      image: "/images/karela-powder.png",
       benefits:
         "Rich in vitamins & antioxidants, aids blood sugar, digestion & detox.",
       description:
@@ -73,7 +73,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 12,
       media: "photo--powder",
-      image: "/images/neem-powder.jpg",
+      image: "/images/neem-powder.png",
       benefits:
         "Aids acne & skin health, boosts immunity, digestion & blood cleansing.",
       description:
@@ -87,7 +87,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 15,
       media: "photo--powder",
-      image: "/images/chia-seeds.jpg",
+      image: "/images/chia-seeds.png",
       benefits:
         "Fibre & protein powerhouse; supports heart, digestion & brain function.",
       description:
@@ -101,7 +101,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 14,
       media: "photo--powder",
-      image: "/images/raw-sea-moss.jpg",
+      image: "/images/raw-sea-moss.png",
       benefits:
         "92 essential minerals; supports immunity, thyroid, gut, skin & energy.",
       description:
@@ -115,7 +115,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 9,
       media: "photo--powder",
-      image: "/images/hibiscus-flower.jpg",
+      image: "/images/hibiscus-flower.png",
       benefits:
         "Antioxidant-rich; supports liver, cholesterol, digestion & immunity.",
       description:
@@ -129,7 +129,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 11,
       media: "photo--leaves",
-      image: "/images/soursop-leaves.jpg",
+      image: "/images/soursop-leaves.png",
       benefits:
         "Antioxidant-rich; supports relaxation, digestion, immunity & wellness.",
       description:
@@ -147,7 +147,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 15,
       media: "photo--oil",
-      image: "/images/ashwagandha-capsules.jpg",
+      image: "/images/ashwagandha-capsules.png",
       benefits: "Stress • Sleep • Memory • Immunity support.",
       description:
         "Ashwagandha capsules formulated to support stress management. Each convenient capsule delivers this classic adaptogen to help support a calm mind, restful sleep, memory and focus, and everyday immunity. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -160,7 +160,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 8,
       media: "photo--oil",
-      image: "/images/karela-capsules.jpg",
+      image: "/images/karela-capsules.png",
       benefits: "Blood sugar • Metabolic • Digestive • Antioxidant support.",
       description:
         "Karela (bitter gourd) capsules for everyday blood sugar support. A convenient way to enjoy karela's traditional benefits — supporting healthy blood sugar and metabolism, aiding digestion and providing antioxidant support. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -173,7 +173,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 12,
       media: "photo--oil",
-      image: "/images/moringa-capsules.jpg",
+      image: "/images/moringa-capsules.png",
       benefits: "Nutrition • Energy • Immune • Antioxidant support.",
       description:
         "Moringa leaf capsules for nutrition and energy support. Packed with the goodness of moringa to nourish the body, support natural energy, everyday immunity and antioxidant protection — all in a convenient capsule. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -186,7 +186,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 10,
       media: "photo--oil",
-      image: "/images/neem-capsules.jpg",
+      image: "/images/neem-capsules.png",
       benefits: "Detoxification • Immune • Skin health • Antioxidant support.",
       description:
         "Neem leaf capsules for purification and immune support. Neem's traditional purifying properties in an easy daily capsule — supporting detoxification, immunity, clear healthy skin and antioxidant protection. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -199,7 +199,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 9,
       media: "photo--oil",
-      image: "/images/sea-moss-capsules.jpg",
+      image: "/images/sea-moss-capsules.png",
       benefits: "Immune • Mineral-rich • Digestive • Energy & vitality.",
       description:
         "Sea moss capsules for immune and cellular support. A mineral-rich sea superfood in convenient capsule form — supporting immunity, digestive health, and everyday energy and vitality. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly.",
@@ -212,7 +212,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 9,
       media: "photo--oil",
-      image: "/images/soursop-capsules.jpg",
+      image: "/images/soursop-capsules.png",
       benefits: "Immune • Antioxidant • Digestive • Inflammation support.",
       description:
         "Soursop (graviola) leaf capsules for immune and cellular support. Soursop's antioxidant-rich leaves in a daily capsule — supporting immunity, digestion and a healthy inflammatory response. 60 capsules, 1000mg active ingredient. Dietary supplement — vegan friendly, made with natural ingredients.",
@@ -229,7 +229,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 11,
       media: "photo--oil",
-      image: "/images/hair-growth-oil.jpg",
+      image: "/images/hair-growth-oil.png",
       benefits:
         "Deeply moisturises, soothes scalp & supports stronger, longer hair.",
       description:
@@ -243,7 +243,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 9,
       media: "photo--oil",
-      image: "/images/shea-butter.jpg",
+      image: "/images/shea-butter.png",
       benefits:
         "Deeply moisturises & softens; rich in Vitamins A & E, chemical-free.",
       description:
@@ -257,7 +257,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 7,
       media: "photo--oil",
-      image: "/images/liquid-chlorophyll.jpg",
+      image: "/images/liquid-chlorophyll.png",
       benefits:
         "Natural deodoriser & antioxidant; supports skin & general wellness.",
       description:
@@ -272,35 +272,35 @@ export const CATEGORIES = [
     blurb: "Nutrient-rich superfoods for your daily wellness.",
     link: "Shop Powders",
     media: "photo--powder",
-    image: "/images/moringa-powder.jpg",
+    image: "/images/moringa-powder.png",
   },
   {
     name: "Capsules",
     blurb: "Targeted support for natural balance.",
     link: "Shop Capsules",
     media: "photo--oil",
-    image: "/images/ashwagandha-capsules.jpg",
+    image: "/images/ashwagandha-capsules.png",
   },
   {
     name: "Oils & Butters",
     blurb: "Pure nourishment for hair, skin and body.",
     link: "Shop Oils & Butters",
     media: "photo--oil",
-    image: "/images/hair-growth-oil.jpg",
+    image: "/images/hair-growth-oil.png",
   },
   {
     name: "Skin & Haircare",
     blurb: "Organic care for radiant skin and healthy hair.",
     link: "Shop Skin & Haircare",
     media: "photo--oil",
-    image: "/images/shea-butter.jpg",
+    image: "/images/shea-butter.png",
   },
   {
     name: "Superfood Blends",
     blurb: "Whole food nutrition for lasting vitality.",
     link: "Shop Blends",
     media: "photo--powder",
-    image: "/images/chia-seeds.jpg",
+    image: "/images/chia-seeds.png",
   },
 ];
 
