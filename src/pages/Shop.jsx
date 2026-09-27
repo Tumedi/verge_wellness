@@ -56,7 +56,7 @@ export default function Shop() {
             </div>
             <Photo
               media="photo--powder"
-              src="/images/moringa-powder.jpg"
+              src="/images/moringa-powder.png"
               style={{ height: 260 }}
               alt="Moringa powder"
             />
@@ -182,7 +182,7 @@ export default function Shop() {
                 </div>
                 <Photo
                   media="photo--oil"
-                  src="/images/ashwagandha-capsules.jpg"
+                  src="/images/ashwagandha-capsules.png"
                   alt="Capsules"
                 />
               </div>
@@ -201,7 +201,7 @@ export default function Shop() {
                 </div>
                 <Photo
                   media="photo--oil"
-                  src="/images/hair-growth-oil.jpg"
+                  src="/images/hair-growth-oil.png"
                   alt="Hair &amp; skin care"
                 />
               </div>
