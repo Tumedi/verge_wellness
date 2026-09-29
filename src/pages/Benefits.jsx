@@ -185,9 +185,9 @@ export default function Benefits() {
               </h2>
               <p className="text-muted mt-16">
                 Choosing organic means choosing a healthier you, cleaner
-                products and a greener future. Our ingredients are pure, potent
-                and purposefully selected — because you deserve the best,
-                naturally.
+                products and a greener future. Our ingredients are organic,
+                pure, potent and purposefully selected — because you deserve the
+                best, naturally.
               </p>
               <p className="script mt-16" style={{ fontSize: "1.4rem" }}>
                 Nature Nourishes You ♡

@@ -268,8 +268,9 @@ export const PRODUCTS = {
 
 export const CATEGORIES = [
   {
-    name: "Organic Powders",
-    blurb: "Nutrient-rich superfoods for your daily wellness.",
+    name: "Organic Powders & Superfoods",
+    blurb:
+      "Nutrient-rich, plant-based goodness to nourish your body, support daily wellness, and promote lasting vitality.",
     link: "Shop Powders",
     media: "photo--powder",
     image: "/images/moringa-capsules.png",
@@ -289,8 +290,9 @@ export const CATEGORIES = [
     image: "/images/shea-butter.png",
   },
   {
-    name: "Skin & Haircare",
-    blurb: "Organic care for radiant skin and healthy hair.",
+    name: "Skin & Hair Care",
+    blurb:
+      "Nourishing oils, botanical butters, and natural care to support healthy skin and beautiful hair.",
     link: "Shop Skin & Haircare",
     media: "photo--oil",
     image: "/images/shea-butter.png",

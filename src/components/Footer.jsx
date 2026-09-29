@@ -45,25 +45,22 @@ export default function Footer() {
               <li>
                 <Link to="/benefits">Our Benefits</Link>
               </li>
-              <li>
-                <Link to="/login">Sign In</Link>
-              </li>
-              <li>
-                <Link to="/signup">Create Account</Link>
-              </li>
             </ul>
           </div>
           <div>
-            <h5>Help &amp; Support</h5>
+            <h5>Additional Links</h5>
             <ul className="footer-links">
+              <li>
+                <Link to="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact</Link>
+              </li>
               <li>
                 <a href="#">FAQs</a>
               </li>
               <li>
                 <a href="#">Shipping &amp; Returns</a>
-              </li>
-              <li>
-                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </div>

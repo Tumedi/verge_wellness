@@ -17,20 +17,20 @@ const info = [
   {
     icon: Phone,
     title: "Phone",
-    main: "+27 72 123 4567",
+    main: "078 410 1651",
     sub: "Mon – Fri: 8:00 AM – 5:00 PM (SAST)",
   },
   {
     icon: Mail,
     title: "Email",
-    main: "hello@vergewellness.co.za",
+    main: "info@vergewellness.co.za",
     sub: "We aim to respond within 24 hours.",
   },
   {
     icon: Pin,
     title: "Our Location",
-    main: "Johannesburg, Gauteng, South Africa",
-    sub: "(By Appointment Only)",
+    main: "Gauteng, South Africa",
+    sub: "Serving customers nationwide.",
   },
 ];
 
@@ -250,11 +250,9 @@ export default function Contact() {
                 >
                   <Pin />
                 </div>
-                <strong>Johannesburg</strong>
+                <strong>Gauteng</strong>
                 <br />
-                <span style={{ fontSize: ".82rem" }}>
-                  Gauteng, South Africa
-                </span>
+                <span style={{ fontSize: ".82rem" }}>South Africa</span>
               </div>
             </div>
             <div className="hours-card">
@@ -271,7 +269,7 @@ export default function Contact() {
                   <strong>9:00 AM – 1:00 PM</strong>
                 </div>
                 <div className="hours-row" style={{ border: "none" }}>
-                  <span>Sunday</span>
+                  <span>Sundays &amp; Public Holidays</span>
                   <strong>Closed</strong>
                 </div>
               </div>

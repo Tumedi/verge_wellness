@@ -43,10 +43,10 @@ export default function About() {
                 Pure Ingredients · Real Care · Lasting Wellness
               </p>
               <p className="text-muted" style={{ maxWidth: 440 }}>
-                At Verge Wellness, we believe true beauty and health come from
-                nature. Our organic products, superfoods, skin and haircare
-                solutions are carefully crafted to nourish your body from the
-                inside out.
+                At Verge Wellness, we believe true wellness and health come
+                from nature. Our organic products, superfoods, skin and
+                haircare solutions are carefully crafted to nourish your body
+                from the inside out.
               </p>
             </div>
             <div style={{ position: "relative" }}>
@@ -102,9 +102,9 @@ export default function About() {
                 helping others achieve their wellness goals, naturally.
               </p>
               <p className="text-muted mt-16">
-                We carefully source the highest quality superfoods, botanical
-                extracts and natural ingredients, ensuring that every product we
-                offer is pure, potent and effective.
+                We source the highest quality superfoods, botanical extracts
+                and natural ingredients, ensuring that every product we offer
+                is pure, potent and effective.
               </p>
               <p className="script mt-16" style={{ fontSize: "1.5rem" }}>
                 Because your wellness journey matters. ♡
@@ -122,10 +122,10 @@ export default function About() {
               <p className="eyebrow">Our Mission</p>
               <h2 style={{ fontSize: "2.2rem" }}>Simplify Holistic Living</h2>
               <p className="text-muted mt-16">
-                To simplify holistic living through pure, potent, and
-                sustainably sourced ingredients. From nutrient-dense powders to
-                traditionally crafted oils and butters, we empower your organic
-                journey from the inside out.
+                To simplify holistic living through organic, pure and potent
+                ingredients. From nutrient-dense powders to traditionally
+                crafted oils and butters, we empower your organic journey from
+                the inside out.
               </p>
               <p
                 style={{

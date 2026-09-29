@@ -2,13 +2,12 @@ import { Link } from "react-router-dom";
 import Photo from "../components/Photo";
 import Feature from "../components/Feature";
 import { CATEGORIES } from "../data/content";
-import { Arrow, Leaf, Sparkle, Globe, Heart } from "../components/Icons";
+import { Arrow, Leaf, Sparkle, Heart } from "../components/Icons";
 
 const aboutFeatures = [
   { icon: Leaf, title: "100% Organic", desc: "& Natural Ingredients" },
   { icon: Sparkle, title: "No Harmful Chemicals", desc: "or Additives" },
-  { icon: Globe, title: "Sustainably Sourced", desc: "& Ethically Produced" },
-  { icon: Heart, title: "Holistic Wellness", desc: "for a Better You" },
+  { icon: Heart, title: "Holistic Wellness", desc: "for a Healthier and Better You" },
 ];
 
 export default function Home() {
@@ -95,10 +94,10 @@ export default function Home() {
                 For a Healthier You
               </h2>
               <p className="text-muted mt-16">
-                Verge Wellness is an organic health and beauty brand dedicated
-                to foundational vitality. We source the highest quality
-                superfoods and botanical essentials to nourish your hair, skin,
-                and body from the inside out.
+                Verge Wellness is an organic health, wellness and beauty brand
+                dedicated to foundational vitality. We source the highest
+                quality superfoods and botanical essentials to nourish your
+                hair, skin, and body from the inside out.
               </p>
               <Link to="/about" className="btn btn--primary mt-24">
                 Learn More <Arrow />
@@ -130,10 +129,10 @@ export default function Home() {
             Simplify Holistic Living
           </h2>
           <p style={{ maxWidth: 680, margin: "16px auto 0", color: "#cdddc6" }}>
-            To simplify holistic living through pure, potent, and sustainably
-            sourced ingredients. From nutrient-dense powders to traditionally
-            crafted oils and butters, we empower your organic journey from the
-            inside out.
+            To simplify holistic living through organic, pure and potent
+            ingredients. From nutrient-dense powders to traditionally crafted
+            oils and butters, we empower your organic journey from the inside
+            out.
           </p>
           <p style={{ marginTop: 22, color: "#eaf1e5", fontWeight: 500 }}>
             🌱 Verge Wellness | Foundational Health | Holistic Beauty 🌱
