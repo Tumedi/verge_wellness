@@ -56,7 +56,7 @@ export default function Shop() {
             </div>
             <Photo
               media="photo--powder"
-              src="/images/moringa-powder.png"
+              src="public/images/moringa-powder.png"
               style={{ height: 260 }}
               alt="Moringa powder"
             />
