@@ -31,7 +31,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 24,
       media: "photo--powder",
-      image: "/images/moringa-powder.png",
+      image: "/images/moringa-capsules.png",
       benefits:
         "Antioxidant-rich, anti-inflammatory, supports energy, gut health & immunity.",
       description:
@@ -45,7 +45,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 18,
       media: "photo--powder",
-      image: "/images/ashwagandha-powder.png",
+      image: "/images/ashwagandha-capsules.png",
       benefits:
         "Helps reduce stress & anxiety, improves sleep, boosts energy & immunity.",
       description:
@@ -59,7 +59,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 10,
       media: "photo--powder",
-      image: "/images/karela-powder.png",
+      image: "/images/karela-capsules.png",
       benefits:
         "Rich in vitamins & antioxidants, aids blood sugar, digestion & detox.",
       description:
@@ -73,7 +73,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 12,
       media: "photo--powder",
-      image: "/images/neem-powder.png",
+      image: "/images/neem-capsules.png",
       benefits:
         "Aids acne & skin health, boosts immunity, digestion & blood cleansing.",
       description:
@@ -87,7 +87,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 15,
       media: "photo--powder",
-      image: "/images/chia-seeds.png",
+      image: "/images/sea-moss-capsules.png",
       benefits:
         "Fibre & protein powerhouse; supports heart, digestion & brain function.",
       description:
@@ -101,7 +101,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 14,
       media: "photo--powder",
-      image: "/images/raw-sea-moss.png",
+      image: "/images/sea-moss-capsules.png",
       benefits:
         "92 essential minerals; supports immunity, thyroid, gut, skin & energy.",
       description:
@@ -115,7 +115,7 @@ export const PRODUCTS = {
       rating: 4,
       reviews: 9,
       media: "photo--powder",
-      image: "/images/hibiscus-flower.png",
+      image: "/images/soursop-capsules.png",
       benefits:
         "Antioxidant-rich; supports liver, cholesterol, digestion & immunity.",
       description:
@@ -129,7 +129,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 11,
       media: "photo--leaves",
-      image: "/images/soursop-leaves.png",
+      image: "/images/soursop-capsules.png",
       benefits:
         "Antioxidant-rich; supports relaxation, digestion, immunity & wellness.",
       description:
@@ -229,7 +229,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 11,
       media: "photo--oil",
-      image: "/images/hair-growth-oil.png",
+      image: "/images/shea-butter.png",
       benefits:
         "Deeply moisturises, soothes scalp & supports stronger, longer hair.",
       description:
@@ -257,7 +257,7 @@ export const PRODUCTS = {
       rating: 5,
       reviews: 7,
       media: "photo--oil",
-      image: "/images/liquid-chlorophyll.png",
+      image: "/images/shea-butter.png",
       benefits:
         "Natural deodoriser & antioxidant; supports skin & general wellness.",
       description:
@@ -272,7 +272,7 @@ export const CATEGORIES = [
     blurb: "Nutrient-rich superfoods for your daily wellness.",
     link: "Shop Powders",
     media: "photo--powder",
-    image: "/images/moringa-powder.png",
+    image: "/images/moringa-capsules.png",
   },
   {
     name: "Capsules",
@@ -286,7 +286,7 @@ export const CATEGORIES = [
     blurb: "Pure nourishment for hair, skin and body.",
     link: "Shop Oils & Butters",
     media: "photo--oil",
-    image: "/images/hair-growth-oil.png",
+    image: "/images/shea-butter.png",
   },
   {
     name: "Skin & Haircare",
@@ -300,7 +300,7 @@ export const CATEGORIES = [
     blurb: "Whole food nutrition for lasting vitality.",
     link: "Shop Blends",
     media: "photo--powder",
-    image: "/images/chia-seeds.png",
+    image: "/images/sea-moss-capsules.png",
   },
 ];
 

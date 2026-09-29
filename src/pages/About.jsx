@@ -52,6 +52,7 @@ export default function About() {
             <div style={{ position: "relative" }}>
               <Photo
                 media="photo--portrait"
+                src="/images/glowing-skin.png"
                 style={{ height: 320 }}
                 alt="Natural glowing skin"
               />
@@ -83,6 +84,7 @@ export default function About() {
           <div className="split">
             <Photo
               media="photo--oil"
+              src="/images/powders-and-oils.png"
               style={{ height: 340 }}
               alt="Botanical ingredients"
             />
@@ -150,8 +152,9 @@ export default function About() {
           <div className="split">
             <Photo
               media="photo--landscape"
+              src="/images/greener-future.png"
               style={{ height: 340, position: "relative" }}
-              alt="Green landscape"
+              alt="Good Health, Greener Future garden sign"
             >
               <p
                 className="script script--on-photo"

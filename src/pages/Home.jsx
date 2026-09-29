@@ -43,8 +43,9 @@ export default function Home() {
             <div style={{ position: "relative" }}>
               <Photo
                 media="photo--portrait"
+                src="/images/glowing-skin.png"
                 style={{ height: 380 }}
-                alt="Woman enjoying natural skincare"
+                alt="Woman with glowing, healthy skin"
               />
               <p
                 className="script script--on-photo"
@@ -82,8 +83,9 @@ export default function Home() {
           >
             <Photo
               media="photo--oil"
+              src="/images/powders-and-oils.png"
               style={{ height: 280 }}
-              alt="Organic powders and oils"
+              alt="Organic powders, oils and seeds"
             />
             <div>
               <p className="eyebrow">About Us</p>
