@@ -27,14 +27,24 @@ export default function Photo({
     setFailed(false);
   }, [src]);
 
-  const showImg = src && !failed;
+  // Make root-absolute paths (e.g. "/images/foo.png") work under a GitHub
+  // Pages sub-path. Vite exposes the deploy base via import.meta.env.BASE_URL
+  // ("/" in dev, "/verge_wellness/" in the Pages build). BASE_URL always ends
+  // with a slash, so strip the leading slash off src before joining. External
+  // URLs (http...) and already-prefixed paths are left untouched.
+  const resolvedSrc =
+    src && src.startsWith("/")
+      ? `${import.meta.env.BASE_URL}${src.slice(1)}`
+      : src;
+
+  const showImg = resolvedSrc && !failed;
 
   return (
     <div className={`photo ${media} ${className}`.trim()} style={style}>
       {showImg ? (
         <img
           className="photo__img"
-          src={src}
+          src={resolvedSrc}
           alt={alt}
           loading="lazy"
           onError={() => setFailed(true)}
