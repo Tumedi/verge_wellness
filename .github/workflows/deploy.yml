@@ -31,9 +31,16 @@ jobs:
 
       - name: Build
         # VITE_BASE must match the repo name so assets resolve on Pages.
+        # EmailJS keys come from repo secrets so order-confirmation emails
+        # work on the live site. Add them under Settings > Secrets and
+        # variables > Actions. The build still succeeds if they are unset —
+        # checkout just skips sending the email.
         run: npm run build
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
+          VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
+          VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
 
       - name: SPA fallback (copy index.html -> 404.html)
         run: cp dist/index.html dist/404.html

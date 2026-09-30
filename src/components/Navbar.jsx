@@ -73,10 +73,10 @@ export default function Navbar() {
               <User />
             </Link>
           )}
-          <button className="icon-btn" aria-label="Cart">
+          <Link className="icon-btn" to="/cart" aria-label="Cart">
             <Cart />
             {cart > 0 && <span className="cart-count">{cart}</span>}
-          </button>
+          </Link>
           <button
             className="nav__toggle"
             aria-label="Menu"

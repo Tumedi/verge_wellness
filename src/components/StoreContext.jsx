@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -14,6 +15,7 @@ const StoreContext = createContext(null);
 // calls when a backend is available.
 const USERS_KEY = "vw_users";
 const SESSION_KEY = "vw_user";
+const CART_KEY = "vw_cart_items";
 
 function readUsers() {
   try {
@@ -23,11 +25,22 @@ function readUsers() {
   }
 }
 
+function readCart() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    return Array.isArray(raw) ? raw : [];
+  } catch {
+    return [];
+  }
+}
+
+// Free shipping over this order value; flat rate otherwise.
+const SHIPPING_FLAT = 60;
+const FREE_SHIPPING_THRESHOLD = 500;
+
 export function StoreProvider({ children }) {
-  const [cart, setCart] = useState(() => {
-    const saved = Number(localStorage.getItem("vw_cart") || "0");
-    return Number.isFinite(saved) ? saved : 0;
-  });
+  // Cart is a list of line items: { name, price, image, size, qty }.
+  const [cartItems, setCartItems] = useState(readCart);
   const [toast, setToast] = useState("");
   const [user, setUser] = useState(() => {
     try {
@@ -38,8 +51,8 @@ export function StoreProvider({ children }) {
   });
 
   useEffect(() => {
-    localStorage.setItem("vw_cart", String(cart));
-  }, [cart]);
+    localStorage.setItem(CART_KEY, JSON.stringify(cartItems));
+  }, [cartItems]);
 
   useEffect(() => {
     if (user) localStorage.setItem(SESSION_KEY, JSON.stringify(user));
@@ -52,13 +65,63 @@ export function StoreProvider({ children }) {
     showToast._t = window.setTimeout(() => setToast(""), 1800);
   }, []);
 
+  // Accepts either a product object or a bare name (back-compat).
   const addToCart = useCallback(
-    (name) => {
-      setCart((c) => c + 1);
-      showToast(name ? `Added ${name} to cart` : "Added to cart");
+    (product, qty = 1) => {
+      const item =
+        typeof product === "string" ? { name: product, price: 0 } : product;
+      if (!item || !item.name) return;
+      setCartItems((items) => {
+        const idx = items.findIndex((i) => i.name === item.name);
+        if (idx !== -1) {
+          const next = [...items];
+          next[idx] = { ...next[idx], qty: next[idx].qty + qty };
+          return next;
+        }
+        return [
+          ...items,
+          {
+            name: item.name,
+            price: Number(item.price) || 0,
+            image: item.image,
+            size: item.size,
+            qty,
+          },
+        ];
+      });
+      showToast(item.name ? `Added ${item.name} to cart` : "Added to cart");
     },
     [showToast],
   );
+
+  const updateQty = useCallback((name, qty) => {
+    setCartItems((items) =>
+      items
+        .map((i) => (i.name === name ? { ...i, qty: Math.max(0, qty) } : i))
+        .filter((i) => i.qty > 0),
+    );
+  }, []);
+
+  const removeFromCart = useCallback((name) => {
+    setCartItems((items) => items.filter((i) => i.name !== name));
+  }, []);
+
+  const clearCart = useCallback(() => setCartItems([]), []);
+
+  // Derived cart figures.
+  const cartCount = useMemo(
+    () => cartItems.reduce((n, i) => n + i.qty, 0),
+    [cartItems],
+  );
+  const subtotal = useMemo(
+    () => cartItems.reduce((sum, i) => sum + i.price * i.qty, 0),
+    [cartItems],
+  );
+  const shipping = useMemo(() => {
+    if (cartItems.length === 0 || subtotal >= FREE_SHIPPING_THRESHOLD) return 0;
+    return SHIPPING_FLAT;
+  }, [cartItems.length, subtotal]);
+  const total = subtotal + shipping;
 
   // Returns { ok: true } or { ok: false, error }
   const signup = useCallback(
@@ -107,10 +170,31 @@ export function StoreProvider({ children }) {
     showToast("Signed out");
   }, [showToast]);
 
+  const value = {
+    // cart
+    cartItems,
+    cartCount,
+    // `cart` kept as a number for back-compat (navbar badge etc.)
+    cart: cartCount,
+    subtotal,
+    shipping,
+    total,
+    freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
+    addToCart,
+    updateQty,
+    removeFromCart,
+    clearCart,
+    // ui
+    showToast,
+    // auth
+    user,
+    signup,
+    login,
+    logout,
+  };
+
   return (
-    <StoreContext.Provider
-      value={{ cart, addToCart, showToast, user, signup, login, logout }}
-    >
+    <StoreContext.Provider value={value}>
       {children}
       <div className={`toast${toast ? " show" : ""}`}>{toast}</div>
     </StoreContext.Provider>

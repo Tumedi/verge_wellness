@@ -262,6 +262,21 @@ export const Clock = ({ size = 18, className }) => (
   </svg>
 );
 
+export const Check = ({ size = 20, className }) => (
+  <svg
+    {...base(size)}
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
 export const Chevron = ({ size = 14, className }) => (
   <svg
     {...base(size)}

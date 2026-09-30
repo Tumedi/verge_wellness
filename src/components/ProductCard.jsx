@@ -28,10 +28,7 @@ export default function ProductCard({ product }) {
           </p>
         )}
       </div>
-      <button
-        className="btn btn--primary"
-        onClick={() => addToCart(product.name)}
-      >
+      <button className="btn btn--primary" onClick={() => addToCart(product)}>
         Add to Cart
       </button>
     </article>
