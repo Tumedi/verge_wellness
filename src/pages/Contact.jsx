@@ -72,6 +72,7 @@ export default function Contact() {
             </div>
             <Photo
               media="photo--powder"
+              src="/images/contact-us.png"
               style={{ height: 250, position: "relative" }}
               alt="Natural wellness ingredients"
             >

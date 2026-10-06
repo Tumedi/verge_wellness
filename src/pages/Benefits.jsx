@@ -70,6 +70,7 @@ export default function Benefits() {
             <div style={{ position: "relative" }}>
               <Photo
                 media="photo--portrait"
+                src="/images/glowing-skin.png"
                 style={{ height: 320 }}
                 alt="Radiant natural skin"
               />
@@ -115,8 +116,9 @@ export default function Benefits() {
             </div>
             <Photo
               media="photo--powder"
+              src="/images/powders-and-oils.png"
               style={{ height: 420, position: "relative" }}
-              alt="Organic powder bowl"
+              alt="Organic powders, oils and seeds"
             >
               <p
                 className="script script--on-photo"
@@ -143,6 +145,7 @@ export default function Benefits() {
           <div className="split">
             <Photo
               media="photo--powder"
+              src="/images/moringa-powder.png"
               style={{ height: 300 }}
               alt="Moringa leaves and powder"
             />

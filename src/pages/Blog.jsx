@@ -37,8 +37,9 @@ export default function Blog() {
             </div>
             <Photo
               media="photo--powder"
+              src="/images/glowing-skin.png"
               style={{ height: 250 }}
-              alt="Herbs and powder"
+              alt="Woman with glowing, healthy skin"
             />
           </div>
         </div>

@@ -29,16 +29,43 @@ export async function sendOrderConfirmation(order) {
     };
   }
 
-  // Build a readable line-item list for the email body.
+  // Resolve image URLs to absolute paths so they load inside the email.
+  const origin =
+    typeof window !== "undefined" ? window.location.origin : "";
+  const base = import.meta.env.BASE_URL || "/";
+  const toAbsolute = (src) => {
+    if (!src) return "";
+    if (/^https?:\/\//i.test(src)) return src;
+    const path = src.startsWith("/") ? `${base}${src.slice(1)}` : src;
+    return `${origin}${path}`;
+  };
+
+  // `orders` matches the EmailJS default "Order Confirmation" template,
+  // which loops over {{#orders}} and prints {{name}}, {{units}}, {{price}}
+  // and {{image_url}} for each line item.
+  const orders = order.items.map((i) => ({
+    name: i.name,
+    units: i.qty,
+    price: (i.price * i.qty).toFixed(2),
+    image_url: toAbsolute(i.image),
+  }));
+
+  // Plain-text item list, for templates that print {{order_items}} instead.
   const itemsText = order.items
     .map((i) => `${i.name} x ${i.qty} — ${money(i.price * i.qty)}`)
     .join("\n");
 
-  // These keys must match the variables used in your EmailJS template,
-  // e.g. {{order_id}}, {{customer_name}}, {{to_email}}, {{order_items}},
-  // {{order_subtotal}}, {{order_shipping}}, {{order_total}}.
   const templateParams = {
+    // --- default "Order Confirmation" template variables ---
     order_id: order.id,
+    email: order.customer.email,
+    orders,
+    cost: {
+      shipping: order.shipping.toFixed(2),
+      tax: "0.00",
+      total: order.total.toFixed(2),
+    },
+    // --- custom/plain-text variables (used by a custom template) ---
     customer_name: order.customer.name,
     to_email: order.customer.email,
     order_items: itemsText,
