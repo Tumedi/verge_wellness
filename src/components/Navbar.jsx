@@ -2,13 +2,16 @@ import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { NAV } from "../data/content";
 import { useStore } from "./StoreContext";
-import { Leaf, Search, User, Cart, Menu } from "./Icons";
+import { Search, User, Cart, Menu } from "./Icons";
 
 function Brand() {
+  // BASE_URL makes the path work both locally ("/") and under the
+  // GitHub Pages sub-path ("/verge_wellness/").
+  const logo = `${import.meta.env.BASE_URL}images/logo.png`;
   return (
     <Link to="/" className="brand">
       <span className="brand__name">
-        <Leaf /> Verge Wellness
+        <img src={logo} alt="" className="brand__logo" /> Verge Wellness
       </span>
       <span className="brand__tag">Organic · Natural · Holistic</span>
     </Link>

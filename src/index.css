@@ -205,7 +205,14 @@ p {
   color: var(--forest);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+}
+
+.brand__logo {
+  height: 32px;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .brand__tag {

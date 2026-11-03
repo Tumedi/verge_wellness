@@ -35,7 +35,7 @@ function readCart() {
 }
 
 // Free shipping over this order value; flat rate otherwise.
-const SHIPPING_FLAT = 60;
+const SHIPPING_FLAT = 85;
 const FREE_SHIPPING_THRESHOLD = 500;
 
 export function StoreProvider({ children }) {

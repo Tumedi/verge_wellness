@@ -14,8 +14,6 @@ export const isEmailConfigured = Boolean(
   SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY,
 );
 
-const money = (n) => `R${Number(n).toFixed(2)}`;
-
 /**
  * Send an order-confirmation email via EmailJS.
  * @param {object} order - the placed order snapshot from Checkout.
@@ -30,14 +28,19 @@ export async function sendOrderConfirmation(order) {
   }
 
   // Resolve image URLs to absolute paths so they load inside the email.
-  const origin =
-    typeof window !== "undefined" ? window.location.origin : "";
-  const base = import.meta.env.BASE_URL || "/";
+  // Images in an email must be reachable from the public internet — a
+  // localhost URL (when testing locally) will always render broken in a
+  // mail client. So build image URLs from a fixed PUBLIC base, not from
+  // window.location. Override via VITE_PUBLIC_SITE_URL if the site moves.
+  const PUBLIC_BASE = (
+    import.meta.env.VITE_PUBLIC_SITE_URL ||
+    "https://tumedi.github.io/verge_wellness/"
+  ).replace(/\/+$/, "");
   const toAbsolute = (src) => {
     if (!src) return "";
     if (/^https?:\/\//i.test(src)) return src;
-    const path = src.startsWith("/") ? `${base}${src.slice(1)}` : src;
-    return `${origin}${path}`;
+    const path = src.startsWith("/") ? src : `/${src}`;
+    return `${PUBLIC_BASE}${path}`;
   };
 
   // `orders` matches the EmailJS default "Order Confirmation" template,
@@ -50,28 +53,49 @@ export async function sendOrderConfirmation(order) {
     image_url: toAbsolute(i.image),
   }));
 
-  // Plain-text item list, for templates that print {{order_items}} instead.
-  const itemsText = order.items
-    .map((i) => `${i.name} x ${i.qty} — ${money(i.price * i.qty)}`)
-    .join("\n");
+  const c = order.customer;
+  // One-line, email-friendly shipping address assembled from the parts
+  // the customer filled in at checkout. Empty parts are skipped.
+  const shippingAddress = [
+    c.address,
+    c.city,
+    c.postal,
+    c.province,
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  // Map the stored payment code to a human-readable label.
+  const PAYMENT_LABELS = {
+    card: "Credit / Debit Card",
+    eft: "Instant EFT",
+    cod: "Cash on Delivery",
+  };
+  const paymentMethod = PAYMENT_LABELS[c.payment] || "Not specified";
 
   const templateParams = {
-    // --- default "Order Confirmation" template variables ---
     order_id: order.id,
-    email: order.customer.email,
+    // Recipient — set the template's "To Email" field to {{email}}.
+    email: c.email,
+    customer_name: c.name,
+    // Shipping / contact details — add {{shipping_address}}, {{phone}},
+    // etc. to the template to display them.
+    shipping_address: shippingAddress,
+    ship_address: c.address || "",
+    ship_city: c.city || "",
+    ship_postal: c.postal || "",
+    ship_province: c.province || "",
+    phone: c.phone || "",
+    // Payment method — add {{payment_method}} to the template.
+    payment_method: paymentMethod,
+    // Line items — the template loops: {{#orders}} ... {{/orders}}
+    // and prints {{name}}, {{units}}, {{price}}, {{image_url}} per item.
     orders,
+    // Cost breakdown.
     cost: {
       shipping: order.shipping.toFixed(2),
-      tax: "0.00",
       total: order.total.toFixed(2),
     },
-    // --- custom/plain-text variables (used by a custom template) ---
-    customer_name: order.customer.name,
-    to_email: order.customer.email,
-    order_items: itemsText,
-    order_subtotal: money(order.subtotal),
-    order_shipping: order.shipping === 0 ? "Free" : money(order.shipping),
-    order_total: money(order.total),
   };
 
   try {
