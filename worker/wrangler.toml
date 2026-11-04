@@ -1,0 +1,17 @@
+# Cloudflare Worker config for payment verification.
+#
+# Deploy (from the project root, after `npx wrangler@4.157.0 login`):
+#   npx wrangler@4.157.0 secret put PAYSTACK_SECRET_KEY --config worker/wrangler.toml
+#   npx wrangler@4.157.0 deploy --config worker/wrangler.toml
+#
+# The secret key (sk_test_... / sk_live_...) is stored by Cloudflare and is
+# NEVER written to this file or committed to git.
+
+name = "verge-wellness-payments"
+main = "index.js"
+compatibility_date = "2025-06-01"
+
+[vars]
+# Sites allowed to call the Worker from a browser (comma-separated, no
+# trailing slash, no path).
+ALLOWED_ORIGINS = "https://tumedi.github.io,http://localhost:8080"

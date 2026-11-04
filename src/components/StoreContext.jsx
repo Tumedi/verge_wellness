@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { FREE_SHIPPING_THRESHOLD, shippingFor } from "../data/pricing";
 
 const StoreContext = createContext(null);
 
@@ -34,9 +35,8 @@ function readCart() {
   }
 }
 
-// Free shipping over this order value; flat rate otherwise.
-const SHIPPING_FLAT = 85;
-const FREE_SHIPPING_THRESHOLD = 500;
+// Shipping rules live in src/data/pricing.js so the payment-verification
+// Worker uses exactly the same numbers.
 
 export function StoreProvider({ children }) {
   // Cart is a list of line items: { name, price, image, size, qty }.
@@ -117,10 +117,10 @@ export function StoreProvider({ children }) {
     () => cartItems.reduce((sum, i) => sum + i.price * i.qty, 0),
     [cartItems],
   );
-  const shipping = useMemo(() => {
-    if (cartItems.length === 0 || subtotal >= FREE_SHIPPING_THRESHOLD) return 0;
-    return SHIPPING_FLAT;
-  }, [cartItems.length, subtotal]);
+  const shipping = useMemo(
+    () => (cartItems.length === 0 ? 0 : shippingFor(subtotal)),
+    [cartItems.length, subtotal],
+  );
   const total = subtotal + shipping;
 
   // Returns { ok: true } or { ok: false, error }

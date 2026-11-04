@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStore } from "../components/StoreContext";
 import { Arrow, Leaf, Check } from "../components/Icons";
 import { sendOrderConfirmation, isEmailConfigured } from "../lib/email";
+import {
+  payWithPaystack,
+  verifyPayment,
+  isPaymentConfigured,
+  isVerificationConfigured,
+} from "../lib/payment";
 
 export default function Checkout() {
   const {
@@ -20,8 +26,25 @@ export default function Checkout() {
 
   const [placedOrder, setPlacedOrder] = useState(null);
   const [placing, setPlacing] = useState(false);
+  // True from the moment Paystack reports success until the Worker has
+  // confirmed the payment; drives the "please don't leave" overlay.
+  const [verifying, setVerifying] = useState(false);
+
+  // While an order is being processed, ask the browser to confirm before
+  // the customer closes or reloads the tab (they'd lose the result).
+  useEffect(() => {
+    if (!placing) return undefined;
+    const warn = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [placing]);
   // "sent" | "failed" | "skipped" — status of the confirmation email.
   const [emailStatus, setEmailStatus] = useState(null);
+  // Shown above the Place Order button when a payment fails or is cancelled.
+  const [payError, setPayError] = useState("");
   const [form, setForm] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -30,7 +53,8 @@ export default function Checkout() {
     city: "",
     postal: "",
     province: "Gauteng",
-    payment: "card",
+    // "online" = pay now via Paystack; "cod" = cash on delivery.
+    payment: "online",
   });
 
   const set = (key) => (e) =>
@@ -40,16 +64,69 @@ export default function Checkout() {
     e.preventDefault();
     if (placing) return;
     setPlacing(true);
+    setPayError("");
+
+    const orderId = `VW-${Date.now().toString().slice(-6)}`;
+
+    // Take payment first. Nothing is cleared or emailed until it succeeds.
+    //   paid    = charged via Paystack
+    //   pending = cash on delivery, pay when the order arrives
+    //   demo    = online selected but Paystack isn't configured (no charge)
+    let payment = { status: "pending", reference: "" };
+    if (form.payment === "online") {
+      if (isPaymentConfigured) {
+        const res = await payWithPaystack({
+          email: form.email,
+          amount: total,
+          reference: orderId,
+          metadata: { order_id: orderId, customer_name: form.name },
+        });
+        if (res.status === "cancelled") {
+          setPayError("Payment was cancelled. Your cart is still saved.");
+          setPlacing(false);
+          return;
+        }
+        if (res.status === "error") {
+          setPayError(`Payment could not be completed: ${res.message}`);
+          setPlacing(false);
+          return;
+        }
+
+        // Confirm server-side that the money really arrived and matches
+        // this cart. (Skipped only if no verification Worker is set up.)
+        if (isVerificationConfigured) setVerifying(true);
+        const check = await verifyPayment({
+          reference: res.reference,
+          items: cartItems,
+        });
+        if (check.status === "failed") {
+          setVerifying(false);
+          setPayError(
+            `Your payment (reference ${res.reference}) went through, but we could not confirm it automatically: ${check.message} Please do not pay again. Contact us with this reference and we will sort out your order.`,
+          );
+          setPlacing(false);
+          return;
+        }
+        payment = {
+          status: "paid",
+          reference: res.reference,
+          verified: check.status === "verified",
+        };
+      } else {
+        payment = { status: "demo", reference: "" };
+      }
+    }
 
     // Snapshot the order before clearing the cart so the confirmation
     // screen (and the email) can show what was purchased.
     const order = {
-      id: `VW-${Date.now().toString().slice(-6)}`,
+      id: orderId,
       items: cartItems,
       subtotal,
       shipping,
       total,
       customer: { ...form },
+      payment,
     };
 
     // Send the confirmation email. The order still succeeds even if the
@@ -63,11 +140,14 @@ export default function Checkout() {
     setEmailStatus(status);
     setPlacedOrder(order);
     clearCart();
+    setVerifying(false);
     setPlacing(false);
     showToast(
-      status === "sent"
-        ? "Order placed — confirmation email sent!"
-        : "Order placed successfully!",
+      payment.status === "paid"
+        ? "Payment received — order placed!"
+        : status === "sent"
+          ? "Order placed — confirmation email sent!"
+          : "Order placed successfully!",
     );
   };
 
@@ -123,8 +203,23 @@ export default function Checkout() {
                 </strong>
               </div>
               <div className="summary-row summary-row--total">
-                <span>Total Paid</span>
+                <span>
+                  {placedOrder.payment.status === "paid"
+                    ? "Total Paid"
+                    : "Total Due"}
+                </span>
                 <strong>{money(placedOrder.total)}</strong>
+              </div>
+              <div className="summary-row">
+                <span>Payment</span>
+                <strong>
+                  {placedOrder.payment.status === "paid" &&
+                    `Paid online (ref ${placedOrder.payment.reference})`}
+                  {placedOrder.payment.status === "pending" &&
+                    "Cash on delivery"}
+                  {placedOrder.payment.status === "demo" &&
+                    "Demo order, no payment taken"}
+                </strong>
               </div>
             </div>
 
@@ -274,19 +369,12 @@ export default function Checkout() {
                 <input
                   type="radio"
                   name="payment"
-                  checked={form.payment === "card"}
-                  onChange={() => setForm((f) => ({ ...f, payment: "card" }))}
+                  checked={form.payment === "online"}
+                  onChange={() =>
+                    setForm((f) => ({ ...f, payment: "online" }))
+                  }
                 />
-                Credit / Debit Card
-              </label>
-              <label className="pay-option">
-                <input
-                  type="radio"
-                  name="payment"
-                  checked={form.payment === "eft"}
-                  onChange={() => setForm((f) => ({ ...f, payment: "eft" }))}
-                />
-                Instant EFT
+                Pay online now (card &amp; more, secured by Paystack)
               </label>
               <label className="pay-option">
                 <input
@@ -298,7 +386,11 @@ export default function Checkout() {
                 Cash on Delivery
               </label>
               <p className="text-muted" style={{ fontSize: ".8rem", marginTop: 10 }}>
-                This is a demo checkout — no real payment is processed.
+                {form.payment === "cod"
+                  ? "Pay in cash when your order is delivered."
+                  : isPaymentConfigured
+                    ? "A secure Paystack window opens when you place your order. We never see or store your card details."
+                    : "Demo mode: online payments are not switched on yet, so no money is taken."}
               </p>
             </div>
           </div>
@@ -328,12 +420,22 @@ export default function Checkout() {
               <span>Total</span>
               <strong>{money(total)}</strong>
             </div>
+            {payError && (
+              <p className="pay-error" role="alert">
+                {payError}
+              </p>
+            )}
             <button
               type="submit"
               className="btn btn--primary summary-cta"
               disabled={placing}
             >
-              {placing ? "Placing Order…" : "Place Order"} <Arrow />
+              {placing
+                ? "Processing…"
+                : form.payment === "online" && isPaymentConfigured
+                  ? `Pay ${money(total)}`
+                  : "Place Order"}{" "}
+              <Arrow />
             </button>
             <p className="summary-note">
               🌱 By placing your order you agree to our terms and privacy
@@ -342,6 +444,26 @@ export default function Checkout() {
           </aside>
         </form>
       </div>
+
+      {verifying && (
+        <div
+          className="verify-overlay"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="verify-title"
+          aria-describedby="verify-desc"
+        >
+          <div className="verify-overlay__box">
+            <div className="verify-spinner" aria-hidden="true" />
+            <h2 id="verify-title">Verifying your payment…</h2>
+            <p id="verify-desc">
+              Your payment was received. Please <strong>do not close or leave
+              this page</strong> and do not go back until we have confirmed
+              it. This usually takes a few seconds.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

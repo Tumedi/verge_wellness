@@ -67,11 +67,20 @@ export async function sendOrderConfirmation(order) {
 
   // Map the stored payment code to a human-readable label.
   const PAYMENT_LABELS = {
-    card: "Credit / Debit Card",
-    eft: "Instant EFT",
+    online: "Paid online (Paystack)",
     cod: "Cash on Delivery",
   };
-  const paymentMethod = PAYMENT_LABELS[c.payment] || "Not specified";
+  const pay = order.payment || {};
+  const paymentMethod =
+    pay.status === "demo"
+      ? "Online payment (demo, no charge)"
+      : PAYMENT_LABELS[c.payment] || "Not specified";
+  const PAYMENT_STATUS_LABELS = {
+    paid: pay.verified ? "Paid (verified)" : "Paid",
+    pending: "Payment due on delivery",
+    demo: "Demo order, no payment taken",
+  };
+  const paymentStatus = PAYMENT_STATUS_LABELS[pay.status] || "";
 
   const templateParams = {
     order_id: order.id,
@@ -88,6 +97,10 @@ export async function sendOrderConfirmation(order) {
     phone: c.phone || "",
     // Payment method — add {{payment_method}} to the template.
     payment_method: paymentMethod,
+    // Optional extras: add {{payment_status}} / {{payment_reference}} to
+    // the template to show whether it was paid and the Paystack reference.
+    payment_status: paymentStatus,
+    payment_reference: pay.reference || "",
     // Line items — the template loops: {{#orders}} ... {{/orders}}
     // and prints {{name}}, {{units}}, {{price}}, {{image_url}} per item.
     orders,

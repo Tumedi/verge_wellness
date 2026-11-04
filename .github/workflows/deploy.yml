@@ -41,6 +41,12 @@ jobs:
           VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
           VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
           VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
+          # Paystack PUBLIC key (pk_test_... or pk_live_...). If the secret
+          # is unset, checkout runs in demo mode and takes no payment.
+          VITE_PAYSTACK_PUBLIC_KEY: ${{ secrets.VITE_PAYSTACK_PUBLIC_KEY }}
+          # URL of the payment-verification Worker (worker/). Not secret,
+          # but kept alongside the other config.
+          VITE_PAYMENT_API_URL: ${{ secrets.VITE_PAYMENT_API_URL }}
 
       - name: SPA fallback (copy index.html -> 404.html)
         run: cp dist/index.html dist/404.html
