@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useStore } from "./StoreContext";
 import { Brand } from "./Navbar";
+import { SHOW_BLOG, SOCIAL } from "../data/content";
 import { Arrow, Facebook, Instagram, TikTok, YouTube } from "./Icons";
 
 export default function Footer() {
@@ -50,9 +51,11 @@ export default function Footer() {
           <div>
             <h5>Additional Links</h5>
             <ul className="footer-links">
-              <li>
-                <Link to="/blog">Blog</Link>
-              </li>
+              {SHOW_BLOG && (
+                <li>
+                  <Link to="/blog">Blog</Link>
+                </li>
+              )}
               <li>
                 <Link to="/contact">Contact</Link>
               </li>
@@ -79,13 +82,28 @@ export default function Footer() {
           <div>
             <h5>Follow Us</h5>
             <div className="socials">
-              <a href="#" aria-label="Facebook">
+              <a
+                href={SOCIAL.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook (opens in a new tab)"
+              >
                 <Facebook />
               </a>
-              <a href="#" aria-label="Instagram">
+              <a
+                href={SOCIAL.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram (opens in a new tab)"
+              >
                 <Instagram />
               </a>
-              <a href="#" aria-label="TikTok">
+              <a
+                href={SOCIAL.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok (opens in a new tab)"
+              >
                 <TikTok />
               </a>
               <a href="#" aria-label="YouTube">

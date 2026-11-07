@@ -11,14 +11,26 @@
 // See public/images/README.md for the full filename checklist.
 // ============================================================
 
+// The Blog is hidden until further notice. Set SHOW_BLOG to true to bring back
+// the menu link, the footer link and the /blog page. (The page code is kept.)
+export const SHOW_BLOG = false;
+
 export const NAV = [
   { label: "Home", to: "/" },
   { label: "Shop", to: "/shop" },
   { label: "About Us", to: "/about" },
   { label: "Our Benefits", to: "/benefits" },
-  { label: "Blog", to: "/blog" },
+  ...(SHOW_BLOG ? [{ label: "Blog", to: "/blog" }] : []),
   { label: "Contact", to: "/contact" },
 ];
+
+// Social media links. Add the others here when you have them.
+export const SOCIAL = {
+  facebook: "https://www.facebook.com/share/1AG3gh71BS/?mibextid=wwXIfr",
+  instagram:
+    "https://www.instagram.com/verge_wellness_?mdxt=enBxY3BkeGVjZm9k&utm_source=qr",
+  tiktok: "https://www.tiktok.com/@verge_wellness?_r=1&_t=ZS-9BCmMiXZ7CC",
+};
 
 export const PRODUCTS = {
   // --- Powders, Superfoods, Seeds & Dried Herbs (pouches) ---

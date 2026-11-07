@@ -6,7 +6,11 @@ import {
   useMemo,
   useState,
 } from "react";
-import { FREE_SHIPPING_THRESHOLD, shippingFor } from "../data/pricing";
+import {
+  FREE_SHIPPING_ENABLED,
+  FREE_SHIPPING_THRESHOLD,
+  shippingFor,
+} from "../data/pricing";
 import { fetchStock } from "../lib/stock";
 
 const StoreContext = createContext(null);
@@ -232,7 +236,10 @@ export function StoreProvider({ children }) {
     subtotal,
     shipping,
     total,
-    freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
+    // null while free shipping is switched off (see src/data/pricing.js)
+    freeShippingThreshold: FREE_SHIPPING_ENABLED
+      ? FREE_SHIPPING_THRESHOLD
+      : null,
     // stock (null when unknown; see stockFor)
     stockFor,
     refreshStock,

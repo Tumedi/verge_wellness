@@ -1,5 +1,6 @@
 import Photo from "../components/Photo";
 import { useStore } from "../components/StoreContext";
+import { SOCIAL } from "../data/content";
 import {
   Arrow,
   Phone,
@@ -80,9 +81,9 @@ export default function Contact() {
                 className="script script--on-photo"
                 style={{
                   position: "absolute",
-                  inset: "20px 20px auto auto",
+                  inset: "20px auto auto 20px",
                   fontSize: "1.4rem",
-                  textAlign: "right",
+                  textAlign: "left",
                   lineHeight: 1.4,
                 }}
               >
@@ -135,13 +136,28 @@ export default function Contact() {
                   Follow Us · @vergewellness
                 </p>
                 <div className="socials socials--dark">
-                  <a href="#" aria-label="Instagram">
+                  <a
+                    href={SOCIAL.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram (opens in a new tab)"
+                  >
                     <Instagram />
                   </a>
-                  <a href="#" aria-label="Facebook">
+                  <a
+                    href={SOCIAL.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook (opens in a new tab)"
+                  >
                     <Facebook />
                   </a>
-                  <a href="#" aria-label="TikTok">
+                  <a
+                    href={SOCIAL.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok (opens in a new tab)"
+                  >
                     <TikTok />
                   </a>
                   <a href="#" aria-label="YouTube">

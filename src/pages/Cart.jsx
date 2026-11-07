@@ -18,7 +18,11 @@ export default function Cart() {
   const navigate = useNavigate();
 
   const money = (n) => `R${n.toFixed(2)}`;
-  const remainingForFree = Math.max(0, freeShippingThreshold - subtotal);
+  // 0 (so no hint is shown) when free shipping is switched off.
+  const remainingForFree =
+    freeShippingThreshold === null
+      ? 0
+      : Math.max(0, freeShippingThreshold - subtotal);
 
   // A line is a problem when we know the stock and the cart asks for more.
   const isOver = (item) => {
