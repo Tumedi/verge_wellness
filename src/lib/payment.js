@@ -15,34 +15,57 @@ const VERIFY_API_URL = import.meta.env.VITE_PAYMENT_API_URL;
 export const isVerificationConfigured = Boolean(VERIFY_API_URL);
 
 /**
- * Ask the Worker to confirm a payment really went through for this cart.
+ * Submit an order to the Worker. For an online order the Worker first
+ * confirms the Paystack payment really happened and matches the cart; then,
+ * for any order, it reduces stock in the MySQL database in one safe step.
+ *
+ * @param {object} opts
+ * @param {string} opts.reference  Order reference (also the Paystack reference).
+ * @param {"online"|"cod"} opts.method
+ * @param {Array<{name: string, qty: number}>} opts.items
  * @returns {Promise<
- *   {status: "verified"} | {status: "skipped"} |
- *   {status: "failed", message: string}
+ *   {status: "ok", verified: boolean, stockTracked: boolean} |
+ *   {status: "out_of_stock", paid: boolean, short: Array<{name: string, available: number}>} |
+ *   {status: "failed", message: string} |
+ *   {status: "skipped"}
  * >}
  */
-export async function verifyPayment({ reference, items }) {
+export async function submitOrder({ reference, method, items }) {
   if (!VERIFY_API_URL) return { status: "skipped" };
   try {
-    const res = await fetch(`${VERIFY_API_URL.replace(/\/+$/, "")}/verify`, {
+    const res = await fetch(`${VERIFY_API_URL.replace(/\/+$/, "")}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         reference,
+        method,
         // Only names and quantities: the Worker applies its own prices.
         items: items.map((i) => ({ name: i.name, qty: i.qty })),
       }),
     });
     const data = await res.json().catch(() => ({}));
-    if (res.ok && data.verified) return { status: "verified" };
+    if (res.ok && data.ok) {
+      return {
+        status: "ok",
+        verified: Boolean(data.verified),
+        stockTracked: Boolean(data.stockTracked),
+      };
+    }
+    if (res.status === 409 && data.reason === "out_of_stock") {
+      return {
+        status: "out_of_stock",
+        paid: Boolean(data.verified),
+        short: Array.isArray(data.short) ? data.short : [],
+      };
+    }
     return {
       status: "failed",
-      message: data.reason || "The payment could not be verified.",
+      message: data.reason || "The order could not be confirmed.",
     };
   } catch {
     return {
       status: "failed",
-      message: "The verification service could not be reached.",
+      message: "The order service could not be reached.",
     };
   }
 }

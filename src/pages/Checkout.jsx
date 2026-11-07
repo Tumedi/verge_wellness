@@ -5,10 +5,24 @@ import { Arrow, Leaf, Check } from "../components/Icons";
 import { sendOrderConfirmation, isEmailConfigured } from "../lib/email";
 import {
   payWithPaystack,
-  verifyPayment,
+  submitOrder,
   isPaymentConfigured,
   isVerificationConfigured,
 } from "../lib/payment";
+
+// "Neem Powder is out of stock; only 2 of Karela Powder left"
+function describeShortage(short) {
+  if (!short || short.length === 0) {
+    return "one or more items are no longer available";
+  }
+  return short
+    .map((s) =>
+      s.available <= 0
+        ? `${s.name} is out of stock`
+        : `only ${s.available} of ${s.name} left`,
+    )
+    .join("; ");
+}
 
 export default function Checkout() {
   const {
@@ -19,6 +33,7 @@ export default function Checkout() {
     clearCart,
     user,
     showToast,
+    refreshStock,
   } = useStore();
   const navigate = useNavigate();
 
@@ -66,6 +81,23 @@ export default function Checkout() {
     setPlacing(true);
     setPayError("");
 
+    // Check the freshest stock BEFORE taking any money. (If stock isn't
+    // available, `latest` is null and we carry on; the Worker is the final
+    // guard against overselling.)
+    const latest = await refreshStock();
+    if (latest) {
+      const short = cartItems
+        .filter((i) => i.name in latest && latest[i.name] < i.qty)
+        .map((i) => ({ name: i.name, available: latest[i.name] }));
+      if (short.length > 0) {
+        setPayError(
+          `Sorry, ${describeShortage(short)}. Please go back to your cart and update it.`,
+        );
+        setPlacing(false);
+        return;
+      }
+    }
+
     const orderId = `VW-${Date.now().toString().slice(-6)}`;
 
     // Take payment first. Nothing is cleared or emailed until it succeeds.
@@ -92,29 +124,58 @@ export default function Checkout() {
           return;
         }
 
-        // Confirm server-side that the money really arrived and matches
-        // this cart. (Skipped only if no verification Worker is set up.)
+        // The Worker confirms the money really arrived and matches this
+        // cart, then reduces stock. (Skipped only if no Worker is set up.)
         if (isVerificationConfigured) setVerifying(true);
-        const check = await verifyPayment({
+        const result = await submitOrder({
           reference: res.reference,
+          method: "online",
           items: cartItems,
         });
-        if (check.status === "failed") {
+        if (result.status === "failed") {
           setVerifying(false);
           setPayError(
-            `Your payment (reference ${res.reference}) went through, but we could not confirm it automatically: ${check.message} Please do not pay again. Contact us with this reference and we will sort out your order.`,
+            `Your payment (reference ${res.reference}) went through, but we could not confirm it automatically: ${result.message} Please do not pay again. Contact us with this reference and we will sort out your order.`,
           );
+          setPlacing(false);
+          return;
+        }
+        if (result.status === "out_of_stock") {
+          // Rare: the last unit sold to someone else while this customer
+          // was paying. The Worker has logged the order for a refund.
+          setVerifying(false);
+          setPayError(
+            `Your payment (reference ${res.reference}) went through, but ${describeShortage(result.short)} just before your order completed. Please do not pay again. Contact us with this reference and we will refund you or arrange the item.`,
+          );
+          refreshStock();
           setPlacing(false);
           return;
         }
         payment = {
           status: "paid",
           reference: res.reference,
-          verified: check.status === "verified",
+          verified: result.status === "ok" && result.verified,
         };
       } else {
         payment = { status: "demo", reference: "" };
       }
+    } else {
+      // Cash on delivery: hold the stock for this order now.
+      const result = await submitOrder({
+        reference: orderId,
+        method: "cod",
+        items: cartItems,
+      });
+      if (result.status === "out_of_stock") {
+        setPayError(
+          `Sorry, ${describeShortage(result.short)}. Please go back to your cart and update it.`,
+        );
+        refreshStock();
+        setPlacing(false);
+        return;
+      }
+      // If the order service can't be reached we still accept the order;
+      // stock just isn't updated until you reconcile it.
     }
 
     // Snapshot the order before clearing the cart so the confirmation
@@ -140,6 +201,7 @@ export default function Checkout() {
     setEmailStatus(status);
     setPlacedOrder(order);
     clearCart();
+    refreshStock(); // show the reduced levels in the shop right away
     setVerifying(false);
     setPlacing(false);
     showToast(

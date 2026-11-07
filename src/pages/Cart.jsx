@@ -13,11 +13,19 @@ export default function Cart() {
     updateQty,
     removeFromCart,
     clearCart,
+    stockFor,
   } = useStore();
   const navigate = useNavigate();
 
   const money = (n) => `R${n.toFixed(2)}`;
   const remainingForFree = Math.max(0, freeShippingThreshold - subtotal);
+
+  // A line is a problem when we know the stock and the cart asks for more.
+  const isOver = (item) => {
+    const limit = stockFor(item.name);
+    return limit !== null && item.qty > limit;
+  };
+  const blocked = cartItems.some(isOver);
 
   if (cartItems.length === 0) {
     return (
@@ -86,6 +94,13 @@ export default function Cart() {
                     <div className="cart-row__size">{item.size}</div>
                   )}
                   <div className="cart-row__price">{money(item.price)}</div>
+                  {isOver(item) && (
+                    <p className="cart-row__stock" role="alert">
+                      {stockFor(item.name) <= 0
+                        ? "Sorry, this item is now out of stock. Please remove it to continue."
+                        : `Only ${stockFor(item.name)} available. Please reduce the quantity to continue.`}
+                    </p>
+                  )}
                   <button
                     className="cart-row__remove"
                     onClick={() => removeFromCart(item.name)}
@@ -104,6 +119,10 @@ export default function Cart() {
                     <span>{item.qty}</span>
                     <button
                       aria-label={`Increase ${item.name} quantity`}
+                      disabled={
+                        stockFor(item.name) !== null &&
+                        item.qty >= stockFor(item.name)
+                      }
                       onClick={() => updateQty(item.name, item.qty + 1)}
                     >
                       +
@@ -146,9 +165,16 @@ export default function Cart() {
               <span>Total</span>
               <strong>{money(total)}</strong>
             </div>
+            {blocked && (
+              <p className="summary-hint" role="alert">
+                Some items in your cart are no longer available in the quantity
+                you chose. Please update them to continue.
+              </p>
+            )}
             <button
               className="btn btn--primary summary-cta"
               onClick={() => navigate("/checkout")}
+              disabled={blocked}
             >
               Proceed to Checkout <Arrow />
             </button>

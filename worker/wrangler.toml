@@ -1,4 +1,4 @@
-# Cloudflare Worker config for payment verification.
+# Cloudflare Worker config: payment verification + MySQL stock.
 #
 # Deploy (from the project root, after `npx wrangler@4.157.0 login`):
 #   npx wrangler@4.157.0 secret put PAYSTACK_SECRET_KEY --config worker/wrangler.toml
@@ -10,8 +10,24 @@
 name = "verge-wellness-payments"
 main = "index.js"
 compatibility_date = "2025-06-01"
+# Required so the mysql2 database driver can run inside a Worker.
+compatibility_flags = ["nodejs_compat"]
 
 [vars]
 # Sites allowed to call the Worker from a browser (comma-separated, no
 # trailing slash, no path).
 ALLOWED_ORIGINS = "https://tumedi.github.io,http://localhost:8080"
+
+# ---- MySQL stock tracking (optional) -------------------------------------
+# Without this block the Worker still verifies payments; it just doesn't
+# track stock. To switch stock on:
+#   1. Run worker/schema.sql in your MySQL database.
+#   2. Create a Hyperdrive config that points at that database:
+#        npx wrangler@4.157.0 hyperdrive create verge-stock --connection-string="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+#      (it prints an id)
+#   3. Paste the id below, remove the leading "# " from the 3 lines, and
+#      redeploy.
+#
+[[hyperdrive]]
+binding = "HYPERDRIVE"
+id = "24f3be68b2f44f8895b769892d86e501"

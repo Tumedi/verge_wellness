@@ -1608,3 +1608,64 @@ p {
     animation-duration: 3s;
   }
 }
+
+/* ---------- Stock indicators ---------- */
+.stock-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 5px 10px;
+  border-radius: 999px;
+  line-height: 1.2;
+}
+
+.stock-badge--out {
+  background: #a23c3c;
+  color: #fff;
+}
+
+.stock-badge--low {
+  background: #f6e7c8;
+  color: #7a5a14;
+}
+
+/* Sold-out cards stay visible but clearly unavailable. */
+.product--soldout .photo__img {
+  opacity: 0.45;
+  filter: grayscale(0.7);
+}
+
+.product--soldout .product__name,
+.product--soldout .product__price {
+  color: var(--muted);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background: #c9cfc4;
+  color: #fff;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.btn:disabled:hover {
+  background: #c9cfc4;
+}
+
+/* Cart line warnings */
+.cart-row__stock {
+  font-size: 0.78rem;
+  color: #a23c3c;
+  margin-top: 6px;
+}
+
+.qty-stepper button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  background: #fff;
+}

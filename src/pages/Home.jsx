@@ -51,10 +51,10 @@ export default function Home() {
                 style={{
                   position: "absolute",
                   top: 24,
-                  right: 20,
+                  left: 20,
                   fontSize: "1.7rem",
                   lineHeight: 1.5,
-                  textAlign: "right",
+                  textAlign: "left",
                 }}
               >
                 Healthy Hair

@@ -61,10 +61,10 @@ export default function About() {
                 style={{
                   position: "absolute",
                   top: 16,
-                  right: 20,
+                  left: 20,
                   fontSize: "1.6rem",
                   lineHeight: 1.5,
-                  textAlign: "right",
+                  textAlign: "left",
                 }}
               >
                 Healthy Hair

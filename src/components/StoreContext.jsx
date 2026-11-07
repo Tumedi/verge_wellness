@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import { FREE_SHIPPING_THRESHOLD, shippingFor } from "../data/pricing";
+import { fetchStock } from "../lib/stock";
 
 const StoreContext = createContext(null);
 
@@ -59,6 +60,34 @@ export function StoreProvider({ children }) {
     else localStorage.removeItem(SESSION_KEY);
   }, [user]);
 
+  // Live stock from MySQL: { "Product name": 12 }. null means unknown (not
+  // configured or the database is unreachable), and then every product is
+  // treated as available so the shop never breaks.
+  const [stock, setStock] = useState(null);
+
+  const refreshStock = useCallback(async () => {
+    const latest = await fetchStock();
+    // Keep the last known levels if a refresh fails.
+    if (latest) setStock(latest);
+    return latest;
+  }, []);
+
+  useEffect(() => {
+    refreshStock();
+    // Re-check when the customer comes back to the tab.
+    const onVisible = () => {
+      if (document.visibilityState === "visible") refreshStock();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [refreshStock]);
+
+  /** Units available for a product, or null if we don't know. */
+  const stockFor = useCallback(
+    (name) => (stock && name in stock ? stock[name] : null),
+    [stock],
+  );
+
   const showToast = useCallback((msg) => {
     setToast(msg);
     window.clearTimeout(showToast._t);
@@ -71,6 +100,21 @@ export function StoreProvider({ children }) {
       const item =
         typeof product === "string" ? { name: product, price: 0 } : product;
       if (!item || !item.name) return;
+
+      // Never let the cart exceed what's in stock.
+      const limit = stockFor(item.name);
+      if (limit !== null) {
+        const inCart = cartItems.find((i) => i.name === item.name)?.qty || 0;
+        if (limit <= 0) {
+          showToast(`${item.name} is out of stock`);
+          return;
+        }
+        if (inCart + qty > limit) {
+          showToast(`Only ${limit} of ${item.name} in stock`);
+          return;
+        }
+      }
+
       setCartItems((items) => {
         const idx = items.findIndex((i) => i.name === item.name);
         if (idx !== -1) {
@@ -91,16 +135,25 @@ export function StoreProvider({ children }) {
       });
       showToast(item.name ? `Added ${item.name} to cart` : "Added to cart");
     },
-    [showToast],
+    [showToast, stockFor, cartItems],
   );
 
-  const updateQty = useCallback((name, qty) => {
-    setCartItems((items) =>
-      items
-        .map((i) => (i.name === name ? { ...i, qty: Math.max(0, qty) } : i))
-        .filter((i) => i.qty > 0),
-    );
-  }, []);
+  const updateQty = useCallback(
+    (name, qty) => {
+      let next = Math.max(0, qty);
+      const limit = stockFor(name);
+      if (limit !== null && next > limit) {
+        next = Math.max(0, limit);
+        showToast(`Only ${limit} of ${name} in stock`);
+      }
+      setCartItems((items) =>
+        items
+          .map((i) => (i.name === name ? { ...i, qty: next } : i))
+          .filter((i) => i.qty > 0),
+      );
+    },
+    [stockFor, showToast],
+  );
 
   const removeFromCart = useCallback((name) => {
     setCartItems((items) => items.filter((i) => i.name !== name));
@@ -180,6 +233,9 @@ export function StoreProvider({ children }) {
     shipping,
     total,
     freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
+    // stock (null when unknown; see stockFor)
+    stockFor,
+    refreshStock,
     addToCart,
     updateQty,
     removeFromCart,
